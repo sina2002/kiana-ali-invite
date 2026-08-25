@@ -1,0 +1,9 @@
+# داده‌های پاسخ مهمان‌ها — هرگز کامیت نشود
+server/rsvp-data.jsonl
+
+# سیستم
+.DS_Store
+Thumbs.db
+
+# نود
+node_modules/

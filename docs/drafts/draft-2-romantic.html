@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>کیانا و علی | جشن نامزدی</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&family=Noto+Nastaliq+Urdu:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#fdf9f4;
+    --paper:#fffdfa;
+    --blush:#f4dade;
+    --rose:#c98a96;
+    --rose-deep:#a35b6b;
+    --plum:#5f3a49;
+    --leaf:#a8b39a;
+    --gold:#c3a26d;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    font-family:'Vazirmatn',sans-serif;
+    background:
+      radial-gradient(90% 60% at 15% 10%, #fbeef0 0%, transparent 60%),
+      radial-gradient(80% 60% at 90% 90%, #f7eae4 0%, transparent 55%),
+      var(--ivory);
+    color:var(--plum);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- گلبرگ‌های ریزان ---------- */
+  .petals{position:fixed;inset:0;pointer-events:none;z-index:2;overflow:hidden}
+  .petal{
+    position:absolute;top:-6vh;
+    width:14px;height:11px;
+    background:radial-gradient(circle at 30% 30%, #fbe3e7, var(--blush) 60%, #eec3cb);
+    border-radius:80% 10% 80% 10%;
+    opacity:.85;
+    animation:fall var(--t) linear var(--dl) infinite;
+  }
+  @keyframes fall{
+    0%{transform:translate(0,-6vh) rotate(0deg)}
+    25%{transform:translate(-4vw,25vh) rotate(120deg)}
+    50%{transform:translate(3vw,52vh) rotate(220deg)}
+    75%{transform:translate(-3vw,78vh) rotate(300deg)}
+    100%{transform:translate(2vw,108vh) rotate(400deg)}
+  }
+
+  /* ---------- صحنه پاکت ---------- */
+  .stage{
+    position:fixed;inset:0;z-index:10;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:2rem;transition:opacity .7s ease,visibility .7s;
+  }
+  .stage.gone{opacity:0;visibility:hidden}
+  .stage-title{
+    font-family:'Great Vibes',cursive;font-size:1.7rem;color:var(--rose);
+  }
+  .envelope{
+    position:relative;width:min(80vw,350px);aspect-ratio:10/7;
+    cursor:pointer;-webkit-tap-highlight-color:transparent;
+    filter:drop-shadow(0 24px 30px rgba(163,91,107,.25));
+  }
+  .env-back{
+    position:absolute;inset:0;border-radius:10px;
+    background:linear-gradient(160deg,#e9b7bf,#d99aa6);
+  }
+  .letter{
+    position:absolute;left:6%;right:6%;top:8%;bottom:12%;
+    background:linear-gradient(180deg,#fffdfa,#fbf2ee);
+    border-radius:6px;border:1px solid #f0dcd4;
+    display:flex;align-items:center;justify-content:center;z-index:2;
+    color:var(--rose-deep);font-family:'Noto Nastaliq Urdu',serif;font-size:1.15rem;
+    transition:transform .9s cubic-bezier(.22,.9,.3,1) .55s;
+  }
+  .env-front{
+    position:absolute;inset:0;border-radius:10px;
+    background:
+      linear-gradient(115deg,rgba(255,255,255,.35),transparent 45%),
+      linear-gradient(160deg,#f2c6cd,#e3a4b0);
+    clip-path:polygon(0 32%,50% 68%,100% 32%,100% 100%,0 100%);z-index:3;
+  }
+  .flap{
+    position:absolute;inset:0;
+    background:linear-gradient(195deg,#f6d3d8,#e8afba);
+    clip-path:polygon(0 0,100% 0,50% 55%);
+    transform-origin:top center;border-radius:10px 10px 0 0;
+    transition:transform .7s cubic-bezier(.6,0,.3,1);
+    z-index:4;
+  }
+  .seal{
+    position:absolute;left:50%;top:50%;z-index:5;
+    width:72px;height:72px;transform:translate(-50%,-52%);
+    border-radius:50%;border:none;cursor:pointer;
+    background:radial-gradient(circle at 35% 30%,#d9a2ad,var(--rose-deep) 60%,#8e4b59);
+    box-shadow:0 8px 20px rgba(163,91,107,.4),inset 0 2px 5px rgba(255,235,238,.55),inset 0 -4px 8px rgba(90,40,52,.35);
+    color:#fff5f2;font-size:1.5rem;line-height:1;
+    display:flex;align-items:center;justify-content:center;
+    transition:transform .3s ease,opacity .4s ease;
+  }
+  .seal:hover{transform:translate(-50%,-52%) scale(1.06)}
+  .seal:focus-visible{outline:2px solid var(--rose-deep);outline-offset:4px}
+  .hint{font-size:.85rem;color:var(--rose);animation:pulse 2.4s ease infinite}
+  @keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+
+  .envelope.open .flap{transform:rotateX(180deg);z-index:1}
+  .envelope.open .seal{opacity:0;transform:translate(-50%,-52%) scale(.6);pointer-events:none}
+  .envelope.open .letter{transform:translateY(-46%) scale(1.04)}
+
+  /* ---------- کارت اصلی ---------- */
+  .invite{
+    position:relative;z-index:5;min-height:100svh;
+    display:flex;align-items:center;justify-content:center;
+    padding:3rem 1.2rem;opacity:0;visibility:hidden;
+    transition:opacity .9s ease .1s,visibility .9s;
+  }
+  .invite.show{opacity:1;visibility:visible}
+  .card{
+    width:min(92vw,440px);
+    background:var(--paper);
+    border-radius:18px;
+    padding:3.4rem 2rem 2.4rem;
+    text-align:center;position:relative;overflow:hidden;
+    box-shadow:0 30px 70px rgba(163,91,107,.22),0 4px 14px rgba(163,91,107,.12);
+  }
+
+  /* گل‌های گوشه (SVG داخلی) */
+  .flora{position:absolute;pointer-events:none;opacity:.95}
+  .flora.top{top:-30px;left:-34px;width:190px;transform:rotate(8deg)}
+  .flora.bottom{bottom:-34px;right:-38px;width:210px;transform:rotate(190deg)}
+
+  /* طاق گل بالای اسم‌ها */
+  .arch{
+    width:150px;margin:0 auto .4rem;display:block;
+  }
+
+  .bismillah{font-size:.8rem;letter-spacing:.4em;color:var(--rose);margin-bottom:1.4rem;font-weight:300}
+  .names{
+    font-family:'Noto Nastaliq Urdu',serif;
+    font-size:clamp(2.4rem,9vw,3.1rem);
+    line-height:2.1;font-weight:600;color:var(--rose-deep);
+  }
+  .subtitle{margin-top:.5rem;font-size:1rem;font-weight:400;letter-spacing:.25em;color:var(--plum)}
+  .en-line{
+    font-family:'Great Vibes',cursive;color:var(--gold);
+    font-size:1.45rem;margin-top:.7rem;
+  }
+
+  .divider{display:flex;align-items:center;gap:.7rem;margin:1.7rem auto;width:70%}
+  .divider::before,.divider::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,#e6c9ce)}
+  .divider::after{background:linear-gradient(90deg,#e6c9ce,transparent)}
+  .divider span{color:var(--rose);font-size:.85rem}
+
+  .rows{display:grid;gap:1.15rem;margin-bottom:1.9rem}
+  .row .lbl{font-size:.68rem;letter-spacing:.35em;color:var(--rose);margin-bottom:.35rem}
+  .row .val{font-size:1.05rem;font-weight:500;color:var(--plum)}
+  .row .val b{color:var(--rose-deep);font-weight:700}
+  .addr{font-size:.85rem;font-weight:300;color:#8a6a75;line-height:1.9;margin-top:.3rem}
+
+  .closing{font-family:'Noto Nastaliq Urdu',serif;font-size:1rem;line-height:2.4;color:#8a6a75}
+  .footer{margin-top:1.5rem;font-size:.7rem;letter-spacing:.3em;color:#c3a2ab;font-weight:300}
+
+  .invite.show .rise{animation:rise .8s cubic-bezier(.2,.7,.3,1) both;animation-delay:calc(var(--i,0)*.15s)}
+  @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="petals" id="petals"></div>
+
+<!-- صحنه‌ی پاکت -->
+<section class="stage" id="stage" aria-label="پاکت دعوت‌نامه">
+  <p class="stage-title">Kiana &amp; Ali</p>
+  <div class="envelope" id="envelope" role="button" tabindex="-1" aria-label="باز کردن دعوت‌نامه">
+    <div class="env-back"></div>
+    <div class="letter">کیانا و علی</div>
+    <div class="env-front"></div>
+    <div class="flap"></div>
+    <button class="seal" id="seal" aria-label="باز کردن دعوت‌نامه">♥</button>
+  </div>
+  <p class="hint">برای باز کردن، روی مُهر بزنید</p>
+</section>
+
+<!-- کارت دعوت -->
+<main class="invite" id="invite">
+  <div class="card">
+
+    <!-- شاخه گل بالا -->
+    <svg class="flora top" viewBox="0 0 200 120" aria-hidden="true">
+      <g fill="none" stroke="var(--leaf)" stroke-width="1.6">
+        <path d="M10 110 Q60 70 120 55 T195 30"/>
+        <path d="M55 88 q10 -22 2 -38"/><path d="M95 66 q16 -18 14 -36"/>
+      </g>
+      <g fill="#f0c8cf">
+        <circle cx="52" cy="46" r="17"/><circle cx="120" cy="52" r="13"/><circle cx="168" cy="30" r="10"/>
+      </g>
+      <g fill="#e3a4b0">
+        <circle cx="52" cy="46" r="10"/><circle cx="120" cy="52" r="7.5"/><circle cx="168" cy="30" r="5.5"/>
+      </g>
+      <g fill="#b76e7e">
+        <circle cx="52" cy="46" r="4.5"/><circle cx="120" cy="52" r="3.5"/><circle cx="168" cy="30" r="2.6"/>
+      </g>
+      <g fill="var(--leaf)" opacity=".85">
+        <ellipse cx="84" cy="74" rx="12" ry="5" transform="rotate(-28 84 74)"/>
+        <ellipse cx="146" cy="46" rx="10" ry="4" transform="rotate(-20 146 46)"/>
+      </g>
+    </svg>
+
+    <!-- شاخه گل پایین -->
+    <svg class="flora bottom" viewBox="0 0 200 120" aria-hidden="true">
+      <g fill="none" stroke="var(--leaf)" stroke-width="1.6">
+        <path d="M10 110 Q60 70 120 55 T195 30"/>
+        <path d="M55 88 q10 -22 2 -38"/><path d="M95 66 q16 -18 14 -36"/>
+      </g>
+      <g fill="#f0c8cf">
+        <circle cx="52" cy="46" r="17"/><circle cx="120" cy="52" r="13"/><circle cx="168" cy="30" r="10"/>
+      </g>
+      <g fill="#e3a4b0">
+        <circle cx="52" cy="46" r="10"/><circle cx="120" cy="52" r="7.5"/><circle cx="168" cy="30" r="5.5"/>
+      </g>
+      <g fill="#b76e7e">
+        <circle cx="52" cy="46" r="4.5"/><circle cx="120" cy="52" r="3.5"/><circle cx="168" cy="30" r="2.6"/>
+      </g>
+      <g fill="var(--leaf)" opacity=".85">
+        <ellipse cx="84" cy="74" rx="12" ry="5" transform="rotate(-28 84 74)"/>
+        <ellipse cx="146" cy="46" rx="10" ry="4" transform="rotate(-20 146 46)"/>
+      </g>
+    </svg>
+
+    <!-- طاق -->
+    <svg class="arch rise" style="--i:0" viewBox="0 0 150 44" aria-hidden="true">
+      <path d="M6 42 Q75 -28 144 42" fill="none" stroke="var(--gold)" stroke-width="1.4"/>
+      <circle cx="75" cy="8" r="3" fill="var(--rose)"/>
+    </svg>
+
+    <p class="bismillah rise" style="--i:1">به نامِ نامیِ یزدان</p>
+
+    <h1 class="names rise" style="--i:2">کیانا و علی</h1>
+
+    <div class="rise" style="--i:3">
+      <p class="subtitle">جشن نامزدی</p>
+      <p class="en-line">We are getting engaged</p>
+    </div>
+
+    <div class="divider rise" style="--i:4" aria-hidden="true"><span>❀</span></div>
+
+    <div class="rows rise" style="--i:5">
+      <div class="row">
+        <p class="lbl">زمان</p>
+        <p class="val">پنج‌شنبه <b>۱۲ شهریور ۱۴۰۵</b> — ساعت <b>۱۸</b></p>
+      </div>
+      <div class="row">
+        <p class="lbl">مکان</p>
+        <p class="val">مجموعه سانست</p>
+        <p class="addr">ابتدای دوکوهک، بعد از مجتمع خلیج فارس،<br>کوچه کابل‌سازی، فرعی اول سمت راست</p>
+      </div>
+    </div>
+
+    <p class="closing rise" style="--i:6">حضور گرم شما، زینت‌بخش شادمانی ماست</p>
+
+    <p class="footer rise" style="--i:7">با عشق — کیانا و علی</p>
+  </div>
+</main>
+
+<script>
+(function(){
+  var stage=document.getElementById('stage'),
+      env=document.getElementById('envelope'),
+      seal=document.getElementById('seal'),
+      invite=document.getElementById('invite'),
+      reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+      opened=false;
+
+  function open(){
+    if(opened)return;opened=true;
+    if(reduced){stage.classList.add('gone');invite.classList.add('show');return;}
+    env.classList.add('open');
+    setTimeout(function(){stage.classList.add('gone');},1500);
+    setTimeout(function(){invite.classList.add('show');},1850);
+  }
+  seal.addEventListener('click',open);
+  env.addEventListener('click',open);
+
+  /* گلبرگ‌ها */
+  if(!reduced){
+    var box=document.getElementById('petals');
+    for(var i=0;i<18;i++){
+      var p=document.createElement('span');
+      p.className='petal';
+      p.style.left=Math.random()*100+'vw';
+      p.style.setProperty('--t',9+Math.random()*8+'s');
+      p.style.setProperty('--dl',-Math.random()*14+'s');
+      p.style.transform='scale('+(0.7+Math.random()*0.9)+')';
+      box.appendChild(p);
+    }
+  }
+})();
+</script>
+</body>
+</html>
